@@ -1,0 +1,178 @@
+﻿@using PlantiT.Web.HeinekenMassafra
+
+@section Styles
+{
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/angular/angularBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/kendo/kendoBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/TestFrontEndBundle")
+}
+
+@section Scripts
+{
+
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery/jQueryBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery-ui/jQuery-uiBundle") 
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/angular/angularBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/kendo/kendoBundle")      
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/he/heBundle")         
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jszip/jszipBundle")
+
+                     
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/HelperBundle")    
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/TestFrontEndBundle")
+}
+
+@{
+    ViewBag.Title = @PLanguageTexts.TXT_BATCH_OVERVIEW;
+}
+
+<script type="text/javascript">
+    kendo.culture("it");
+    var resizeViewContent = function () {
+        // Passt nach jeder Änderung der Fenstergröße die Höhe des ViewContent an (weißer Hintergrund)
+        var contentHeight = $("#MainContent").innerHeight() - ($("#viewHeadline").outerHeight() + $("#viewNavigation").outerHeight());
+        $("#viewContent").css("height", contentHeight + "px");
+    }
+
+    $(document).on("ready", resizeViewContent);
+    $(window).on("resize", resizeViewContent);
+
+    var decodeString = function (string) {
+        return he.decode(string,
+        {
+            "strict": false
+        });
+    }
+
+
+    app.service('txt', function () {
+        return {
+        TXT_VALUES: decodeString("@PLanguageTexts.TXT_VALUES"),
+        TXT_LOCKED: decodeString("@PLanguageTexts.TXT_LOCKED"),
+        TXT_MATERIAL: decodeString("@PLanguageTexts.TXT_MATERIAL"),
+        TXT_VALUE: decodeString("@PLanguageTexts.TXT_VALUE"),  
+        TXT_VALUE_NAME: decodeString("@PLanguageTexts.TXT_VALUE_NAME"),
+        TXT_BATCH_START_TIME: decodeString("@PLanguageTexts.TXT_BATCH_START_TIME"),
+        TXT_BATCH_NAME: decodeString("@PLanguageTexts.TXT_BATCH_NAME"),
+        TXT_RECORDING_TIME: decodeString("@PLanguageTexts.TXT_RECORDING_TIME"),
+        TXT_UNIT_OF_MEASUREMENT: decodeString("@PLanguageTexts.TXT_UNIT_OF_MEASUREMENT"),
+        TXT_COMMENT: decodeString("@PLanguageTexts.TXT_COMMENT"),
+        TXT_STATUS: decodeString("@PLanguageTexts.TXT_STATUS"),
+        TXT_STARTS_WITH: decodeString("@PLanguageTexts.TXT_STARTS_WITH"),
+        TXT_IS_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_EQUAL_TO"),
+        TXT_IS_NOT_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_NOT_EQUAL_TO"),
+        TXT_CREATE: decodeString("@PLanguageTexts.TXT_CREATE"),
+        TXT_SAP_PO: decodeString("@PLanguageTexts.TXT_SAP_PO"),
+        TXT_PP: decodeString("@PLanguageTexts.TXT_PP"),
+        TXT_QM: decodeString("@PLanguageTexts.TXT_QM"),
+        TXT_SEND_TO_SAP: decodeString("@PLanguageTexts.TXT_SEND_TO_SAP"),
+        TXT_STATUS_TEXT: decodeString("@PLanguageTexts.TXT_STATUS_TEXT"),
+        TXT_RESET: decodeString("@PLanguageTexts.TXT_RESET"), 
+        TXT_MANUAL_OK: decodeString("@PLanguageTexts.TXT_MANUAL_OK"),
+        TXT_VALUE_ORIGINAL: decodeString("@PLanguageTexts.TXT_VALUE_ORIGINAL"), 
+        TXT_LOWER_LIMIT: decodeString("@PLanguageTexts.TXT_LOWER_LIMIT"),
+        TXT_UPPER_LIMIT: decodeString("@PLanguageTexts.TXT_UPPER_LIMIT"),
+        TXT_LOWER_LIMIT_PLUS: decodeString("@PLanguageTexts.TXT_LOWER_LIMIT_PLUS"),
+        TXT_UPPER_LIMIT_PLUS: decodeString("@PLanguageTexts.TXT_UPPER_LIMIT_PLUS"),
+        TXT_SAP_BATCH: decodeString("@PLanguageTexts.TXT_SAP_BATCH"),
+        TXT_IS_COMPLETE: decodeString("@PLanguageTexts.TXT_IS_COMPLETE"),
+        TXT_PROCESS_START_TIME: decodeString("@PLanguageTexts.TXT_PROCESS_START_TIME"),
+
+            
+        };
+    });
+
+</script>
+
+                                     
+<input type="hidden" id="gatewayPath" data-value="@ViewBag.GatewayPath" />
+<input type="hidden" id="authenticationToken" data-value="@ViewBag.AuthenticationToken" />
+<input type="hidden" id="authenticationType" data-value="@ViewBag.AuthenticationType" />
+
+
+<section class="view">
+
+
+  <div id="appKendoTestFrontEnd" ng-app="KendoTestFrontEnd">
+    <div id="TestFrontEndCtrl" ng-controller="TestFrontEndCtrl" ng-init="OnInitTestFrontEndHeaders()">
+
+      <!-- Templates -->
+      <script type="text/ng-template" id="modalDialogAutomaticRefreshDelayElapsedTemplate">
+            <div class="ngdialog-message">
+                        <h3>@PLanguageTexts.TXT_AUTOMATIC_REFRESH</h3>
+                          @PLanguageTexts.TXT_THERE_ARE_STILL_UNSAVED_VALUES_IN_THE_GRID @PLanguageTexts.TXT_HOW_DO_YOU_WANT_TO_PROCEED
+           </div>
+
+        <div class="ngdialog-buttons mt">
+                      <kendo-button class="save" ng-click="closeThisDialog(1)">@PLanguageTexts.TXT_SAVE_AND_REFRESH</kendo-button>
+                      <kendo-button class="cancel" ng-click="closeThisDialog(2)">@PLanguageTexts.TXT_CANCEL_AND_REFRESH</kendo-button>
+                      <kendo-button class="continue" ng-click="closeThisDialog(0)">@PLanguageTexts.TXT_CONTINUE</kendo-button>
+        </div>
+      </script>
+
+        <script type="text/ng-template" id="modalDialogAutomaticRefreshDelayElapsedTemplatePage">
+            <div class="ngdialog-message">
+                <h3>@PLanguageTexts.TXT_AUTOREFRESH_STOPPED</h3>
+                @PLanguageTexts.TXT_PLEASE_CHOOSE_AN_ACTION_TO_CONTINUE
+            </div>
+
+            <div class="ngdialog-buttons mt autorefreshstopped">
+                <kendo-button class="cancel" ng-click="closeThisDialog(2)">@PLanguageTexts.TXT_CANCEL_AND_REFRESH_TO_THE_FIRST_PAGE</kendo-button>
+                <kendo-button class="continue" ng-click="closeThisDialog(0)">@PLanguageTexts.TXT_CONTINUE_ON_THIS_PAGE</kendo-button>
+            </div>
+        </script>
+
+      <div id="viewHeadline" class="viewHeadline row">
+        <h1 class="h1WhiteFont">@ViewBag.Title</h1>
+      </div>
+
+      <div id="viewNavigation" class="row">
+        <table border="0" class="viewNavigation navigationBar">
+          <tr>
+            <td class="navigationBar-left">
+              <kendo-button class="save" ng-click="OnGridTestFrontEndSave()">@PLanguageTexts.TXT_SAVE</kendo-button>
+              <kendo-button class="cancel" ng-click="OnGridTestFrontEndRefresh()">@PLanguageTexts.TXT_CANCEL</kendo-button>
+
+            </td>
+            <td class="navigationBar-right">
+              @PLanguageTexts.TXT_AUTO_REFRESH:  <input type="checkbox" name="checkBoxAutomaticRefresh" ng-model="checkBoxAutomaticRefreshValue" ng-true-value="1" ng-false-value="0" ng-change="OnCheckBoxAutomaticRefreshChange(e)">
+              |
+              @PLanguageTexts.TXT_BATCH_START_TIME
+              <input kendo-date-time-picker="dateTimePickerTestFrontEndHeadersStart" k-ng-model="dtTestFrontEndHeadersStartValue" k-options="dateTimePickerTestFrontEndHeadersStart" />
+              <input kendo-date-time-picker="dateTimePickerTestFrontEndHeadersStop" k-ng-model="dtTestFrontEndHeadersStopValue" k-options="dateTimePickerTestFrontEndHeadersStop" />
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="viewContent" class="viewContent row">
+        <div kendo-grid="gridTestFrontEndHeaders" k-options="gridTestFrontEndHeaders">
+          <div k-detail-template>
+            <div kendo-tabstrip="tabStripTestFrontEndHeaders" k-options="tabStripTestFrontEndHeaders">
+              <ul>
+                <li id="tabStripTestFrontEndHeadersValues" class="k-state-active">@PLanguageTexts.TXT_VALUES</li>
+                <li id="tabStripTestFrontEndHeadersComment">@PLanguageTexts.TXT_COMMENT</li>
+              </ul>
+                <div id="gridTestFrontEndValues" kendo-grid="gridTestFrontEndValues" k-options="gridTestFrontEndValues(dataItem)">
+                    <div k-detail-template>
+                        <kendo-tabstrip>
+                            <ul>
+                                <li class="k-state-active">@PLanguageTexts.TXT_COMMENT</li>
+                            </ul>
+                            <div>
+                                <textarea class="textarea-gridComment" ng-model="dataItem.Comment" ng-change="OnCommentChange(dataItem, gridTestFrontEndValues)"></textarea>
+                            </div>
+                        </kendo-tabstrip>
+                    </div>
+                </div>
+                <div>
+                    <textarea class="textarea-gridComment" ng-model="dataItem.Comment" ng-change="OnCommentChange(dataItem, gridTestFrontEndHeaders)"></textarea>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,125 @@
+﻿@using PlantiT.Web.HeinekenBergamo
+
+@section Styles
+{
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Styles/angular/angularBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Styles/kendo/kendoBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Styles/MaintainTemplateTestBundle")
+
+}
+
+@section Scripts
+{
+
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/jQuery/jQueryBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/jQuery-ui/jQuery-uiBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/angular/angularBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/kendo/kendoBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/he/heBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/jszip/jszipBundle")
+
+
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/HelperBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenBergamo.MES/Content/Scripts/MaintainTemplateTestBundle")
+}
+
+@{
+    ViewBag.Title = @PLanguageTexts.TXT_MAINTAIN_TEMPLATE;
+}
+
+<script type="text/javascript">
+    var resizeViewContent = function () {
+        // Passt nach jeder Änderung der Fenstergröße die Höhe des ViewContent an (weißer Hintergrund)
+        var contentHeight = $("#MainContent").innerHeight() - ($("#viewHeadline").outerHeight() + $("#viewNavigation").outerHeight());
+        $("#viewContent").css("height", contentHeight + "px");
+    }
+
+    $(document).on("ready", resizeViewContent);
+    $(window).on("resize", resizeViewContent);
+
+    var decodeString = function (string) {
+        return he.decode(string,
+        {
+            "strict": false
+        });
+    }
+
+
+    app.service('txt', function () {
+        return {
+        TXT_MAINTAIN_TEMPLATE: decodeString("@PLanguageTexts.TXT_MAINTAIN_TEMPLATE"),
+        TXT_DELETE: decodeString("@PLanguageTexts.TXT_DELETE"),  
+        TXT_INSERT_NEW_LINE: decodeString("@PLanguageTexts.TXT_INSERT_NEW_LINE"),
+        TXT_MATERIAL: decodeString("@PLanguageTexts.TXT_MATERIAL"),
+        TXT_COMMENT: decodeString("@PLanguageTexts.TXT_COMMENT"),
+        TXT_STARTS_WITH: decodeString("@PLanguageTexts.TXT_STARTS_WITH"),
+        TXT_IS_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_EQUAL_TO"),
+        TXT_IS_NOT_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_NOT_EQUAL_TO"),
+        };
+    });
+
+</script>
+
+
+<input type="hidden" id="gatewayPath" data-value="@ViewBag.GatewayPath" />
+<input type="hidden" id="authenticationToken" data-value="@ViewBag.AuthenticationToken" />
+<input type="hidden" id="authenticationType" data-value="@ViewBag.AuthenticationType" />
+
+
+<section class="view">
+
+    <div id="appKendoMaintainTemplateTest" ng-app="KendoMaintainTemplateTest">
+        <div id="MaintainTemplateTestCtrl" ng-controller="MaintainTemplateTestCtrl" ng-init="OnInitMaintainTemplateTestHeaders()">
+
+            <!-- Templates -->
+            <script type="text/ng-template" id="modalDialogAutomaticRefreshDelayElapsedTemplate">
+                <div class="ngdialog-message">
+                    <h3>@PLanguageTexts.TXT_AUTOMATIC_REFRESH</h3>
+                    @PLanguageTexts.TXT_THERE_ARE_STILL_UNSAVED_VALUES_IN_THE_GRID @PLanguageTexts.TXT_HOW_DO_YOU_WANT_TO_PROCEED
+                </div>
+
+                <div class="ngdialog-buttons mt">
+                    <kendo-button class="save" ng-click="closeThisDialog(1)">@PLanguageTexts.TXT_SAVE_AND_REFRESH</kendo-button>
+                    <kendo-button class="cancel" ng-click="closeThisDialog(2)">@PLanguageTexts.TXT_CANCEL_AND_REFRESH</kendo-button>
+                    <kendo-button class="continue" ng-click="closeThisDialog(0)">@PLanguageTexts.TXT_CONTINUE</kendo-button>
+                </div>
+            </script>
+
+            <div id="viewHeadline" class="viewHeadline row">
+                <h1 class="h1WhiteFont">@ViewBag.Title</h1>
+            </div>
+
+            <div id="viewNavigation" class="viewNavigation row">
+                <table border="0" class="navigationBar">
+                    <tr>
+                        <td class="navigationBar-left">
+                            <kendo-button class="save" ng-click="OnGridMaintainTemplateTestSave()">@PLanguageTexts.TXT_SAVE</kendo-button>
+                            <kendo-button class="cancel" ng-click="OnGridMaintainTemplateTestRefresh()">@PLanguageTexts.TXT_CANCEL</kendo-button>
+                        </td>
+                        <td class="navigationBar-right">
+                            @PLanguageTexts.TXT_AUTO_REFRESH:  <input type="checkbox" name="checkBoxAutomaticRefresh" ng-model="checkBoxAutomaticRefreshValue" ng-true-value="1" ng-false-value="0" ng-change="OnCheckBoxAutomaticRefreshChange(e)">
+                            |
+                            @PLanguageTexts.TXT_CREATED
+                            <input kendo-date-time-picker="dateTimePickerMaintainTemplateTestHeadersStart" k-ng-model="dtMaintainTemplateTestHeadersStartValue" k-options="dateTimePickerMaintainTemplateTestHeadersStart" />
+                            <input kendo-date-time-picker="dateTimePickerMaintainTemplateTestHeadersStop" k-ng-model="dtMaintainTemplateTestHeadersStopValue" k-options="dateTimePickerMaintainTemplateTestHeadersStop" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="viewContent" class="viewContent row">
+                <div kendo-grid="gridMaintainTemplateTestHeaders" k-options="gridMaintainTemplateTestHeaders">
+                    <div k-detail-template>
+                        <div id="gridMaintainTemplateTestValue" kendo-grid="gridMaintainTemplateTestValue" k-options="gridMaintainTemplateTestValue(dataItem)">
+                            <div k-detail-template>
+                                <div>
+                                    <textarea class="textarea-gridComment" ng-model="dataItem.Comment" ng-change="OnCommentChange(dataItem, gridMaintainTemplateTestValue)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

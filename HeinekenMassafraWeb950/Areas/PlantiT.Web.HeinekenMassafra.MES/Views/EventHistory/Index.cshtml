@@ -1,0 +1,213 @@
+﻿@using PlantiT.Web.HeinekenMassafra
+
+@section Styles
+{
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/angular/angularBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/kendo/kendoBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/EventHistoryBundle")
+}
+
+@section Scripts
+{
+
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery/jQueryBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery-ui/jQuery-uiBundle") 
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/angular/angularBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/kendo/kendoBundle")      
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/he/heBundle")         
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jszip/jszipBundle")
+
+                     
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/HelperBundle")    
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/EventHistoryBundle")
+}
+
+@{
+  ViewBag.Title = @PLanguageTexts.TXT_EVENT_HISTORY;
+}
+
+<script type="text/javascript">
+    kendo.culture("it");
+  var resizeViewContent = function () {
+    // Passt nach jeder Änderung der Fenstergröße die Höhe des ViewContent an (weißer Hintergrund)
+    var contentHeight = $("#MainContent").innerHeight() - ($("#viewHeadline").outerHeight() + $("#viewNavigation").outerHeight());
+    $("#viewContent").css("height", contentHeight + "px");
+  }
+
+  $(document).on("ready", resizeViewContent);
+  $(window).on("resize", resizeViewContent);
+
+  var decodeString = function (string) {
+    return he.decode(string,
+    {
+      "strict": false
+    });
+  }
+
+
+  app.service('txt', function () {
+    return {
+      TXT_EVENT_HISTORY: decodeString("@PLanguageTexts.TXT_EVENT_HISTORY"),
+      TXT_INPUT_EVENT_HISTORY: decodeString("@PLanguageTexts.TXT_INPUT_EVENT_HISTORY"),
+      TXT_INPUT_LINE: decodeString("@PLanguageTexts.TXT_INPUT_LINE"),
+      TXT_INPUT_MATERIAL: decodeString("@PLanguageTexts.TXT_INPUT_MATERIAL"),
+      TXT_INPUT_UNIT: decodeString("@PLanguageTexts.TXT_INPUT_UNIT"),
+      TXT_TIMERANGE: decodeString("@PLanguageTexts.TXT_TIMERANGE"),
+      TXT_STARTS_WITH: decodeString("@PLanguageTexts.TXT_STARTS_WITH"),
+      TXT_IS_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_EQUAL_TO"),
+      TXT_IS_NOT_EQUAL_TO: decodeString("@PLanguageTexts.TXT_IS_NOT_EQUAL_TO"),
+      TXT_BATCH_NAME: decodeString("@PLanguageTexts.TXT_BATCH_NAME"),
+      TXT_MATERIAL: decodeString("@PLanguageTexts.TXT_MATERIAL"),
+      TXT_RESULT: decodeString("@PLanguageTexts.TXT_RESULT"),
+      TXT_FROM: decodeString("@PLanguageTexts.TXT_FROM"),
+      TXT_TO: decodeString("@PLanguageTexts.TXT_TO"),
+      TXT_LOAD_REPORT: decodeString("@PLanguageTexts.TXT_LOAD_REPORT"),
+      TXT_BREWLINE: decodeString("@PLanguageTexts.TXT_BREWLINE"),
+      TXT_NO_MATERIAL_SELECTED: decodeString("@PLanguageTexts.TXT_NO_MATERIAL_SELECTED")
+        };
+    });
+
+</script>
+
+
+<script type="text/ng-template" id="modalDialogNoMaterialSelectionTemplate">
+  <div class="ngdialog-message">
+    <h3>@PLanguageTexts.TXT_AUTOMATIC_REFRESH</h3>
+    @PLanguageTexts.TXT_THERE_ARE_STILL_UNSAVED_VALUES_IN_THE_GRID @PLanguageTexts.TXT_HOW_DO_YOU_WANT_TO_PROCEED
+  </div>
+
+  <div class="ngdialog-buttons mt">
+    <kendo-button class="save" ng-click="closeThisDialog(1)">@PLanguageTexts.TXT_SAVE_AND_REFRESH</kendo-button>
+    <kendo-button class="cancel" ng-click="closeThisDialog(2)">@PLanguageTexts.TXT_CANCEL_AND_REFRESH</kendo-button>
+    <kendo-button class="continue" ng-click="closeThisDialog(0)">@PLanguageTexts.TXT_CONTINUE</kendo-button>
+  </div>
+</script>
+                                     
+<input type="hidden" id="gatewayPath" data-value="@ViewBag.GatewayPath" />
+<input type="hidden" id="authenticationToken" data-value="@ViewBag.AuthenticationToken" />
+<input type="hidden" id="authenticationType" data-value="@ViewBag.AuthenticationType" />
+
+
+<section class="view">
+
+
+  <div id="appKendoEventHistory" ng-app="KendoEventHistory">
+    <div id="EventHistoryCtrl" ng-controller="EventHistoryCtrl" ng-init="OnInitEventHistory()">
+
+      <!-- Templates -->
+      <script type="text/ng-template" id="modalDialogNoMaterialSelectionTemplate">
+        <div class="ngdialog-message">
+          <h3>@PLanguageTexts.TXT_NO_MATERIAL_SELECTED</h3>
+  
+        </div>
+
+        <div class="ngdialog-buttons mt">    
+          <kendo-button class="continue" ng-click="closeThisDialog(0)">@PLanguageTexts.TXT_CONTINUE</kendo-button>
+        </div>
+      </script>
+
+      <div id="viewHeadline" class="viewHeadline row">
+        <h1 class="h1WhiteFont">@ViewBag.Title</h1>
+      </div>
+
+      <div id="viewNavigation" class="row">
+        <table border="0" class="viewNavigation navigationBar">
+          <tr>
+            <td class="navigationBar-left">
+              <table>
+                <tr>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_FROM:<br />
+                    <input kendo-date-time-picker="dateTimePickerEventHistoryStartTime" k-ng-model="dtEventHistoryStartTime" k-options="dateTimePickerEventHistoryStartTime" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_TO:<br />
+                    <input kendo-date-time-picker="dateTimePickerEventHistoryEndTime" k-ng-model="dtEventHistoryEndTime" k-options="dateTimePickerEventHistoryEndTime" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_INPUT_EVENT_HISTORY:<br />
+                    <input kendo-combo-box id="comboBoxFilterEventHistory" k-options="comboBoxFilterEventHistory" k-ng-model="cbFilterEventHistory" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="OnFilterEventHistoryDelete()" />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_INPUT_UNIT:<br />
+                    <input kendo-combo-box id="comboBoxFilterUnit" k-options="comboBoxFilterUnit" k-ng-model="cbFilterUnit" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="OnFilterUnitDelete()" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_INPUT_LINE:<br />
+                    <input kendo-combo-box id="comboBoxFilterLine" k-options="comboBoxFilterLine" k-ng-model="cbFilterLine" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="OnFilterLineDelete()" />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_INPUT_MATERIAL:<br />
+                    <input kendo-combo-box id="comboBoxFilterMaterial" k-options="comboBoxFilterMaterial" k-ng-model="cbFilterMaterial" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="OnFilterMaterialDelete()" />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_BATCH:<br />
+                    <input kendo-combo-box id="comboBox1stFilterBatch" k-options="comboBox1stFilterBatch" k-ng-model="cbFilter1stBatchValue" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="On1stFilterBatchDelete()" />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_TO<br />
+                    <input kendo-combo-box id="comboBox2ndFilterBatch" k-options="comboBox2ndFilterBatch" k-ng-model="cbFilter2ndBatchValue" style="width: 200px" />
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="k-primary button button-small button-delete" ng-click="On2ndFilterBatchDelete()" />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    &nbsp;<br />
+                    <kendo-button class="load" ng-click="OnLoadValues()">@PLanguageTexts.TXT_LOAD_REPORT</kendo-button>
+                  </td>
+                </tr>
+              </table>
+
+           </td>
+          </tr>
+        </table>
+      </div>
+      <div id="viewContent" class="viewContent row">
+        <div kendo-grid="gridEventHistoryValues" k-options="gridEventHistoryValues" k-rebind="doRebind" style="height:100%;">
+
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

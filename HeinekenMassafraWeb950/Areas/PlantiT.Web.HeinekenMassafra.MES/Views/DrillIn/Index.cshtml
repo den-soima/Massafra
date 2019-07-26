@@ -1,0 +1,138 @@
+﻿@using PlantiT.Web.HeinekenMassafra
+
+@section Styles
+{
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/angular/angularBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/kendo/kendoBundle")
+    @Styles.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Styles/DrillInBundle")
+}
+
+@section Scripts
+{
+
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery/jQueryBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jQuery-ui/jQuery-uiBundle") 
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/angular/angularBundle")
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/kendo/kendoBundle")      
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/he/heBundle")         
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/jszip/jszipBundle")
+
+                     
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/HelperBundle")    
+    @Scripts.Render("~/Areas/PlantiT.Web.HeinekenMassafra.MES/Content/Scripts/DrillInBundle")
+}
+
+@{
+    ViewBag.Title = @PLanguageTexts.TXT_DRILL_IN;
+}
+
+<script type="text/javascript">
+    kendo.culture("it");
+  var resizeViewContent = function () {
+    // Passt nach jeder Änderung der Fenstergröße die Höhe des ViewContent an (weißer Hintergrund)
+    var contentHeight = $("#MainContent").innerHeight() - ($("#viewHeadline").outerHeight() + $("#viewNavigation").outerHeight());
+    $("#viewContent").css("height", contentHeight + "px");
+  }
+
+  $(document).on("ready", resizeViewContent);
+  $(window).on("resize", resizeViewContent);
+
+  var decodeString = function (string) {
+    return he.decode(string,
+    {
+      "strict": false
+    });
+  }
+
+
+  app.service('txt', function () {
+    return {
+      TXT_FTR: decodeString("@PLanguageTexts.TXT_DRILL_IN"),
+      TXT_BATCHNAME: decodeString("@PLanguageTexts.TXT_BATCHNAME"),
+      TXT_FTR_REPORT: decodeString("@PLanguageTexts.TXT_FTR_REPORT"),
+      TXT_VARIABLE: decodeString("@PLanguageTexts.TXT_VARIABLE"),
+      TXT_VALUE: decodeString("@PLanguageTexts.TXT_VALUE"),
+      TXT_VALUE_LVL: decodeString("@PLanguageTexts.TXT_VALUE_LVL"),
+      TXT_VALUE_LL: decodeString("@PLanguageTexts.TXT_VALUE_LL"),
+      TXT_VALUE_SPRE: decodeString("@PLanguageTexts.TXT_VALUE_SPRE"),
+      TXT_VALUE_SPRU: decodeString("@PLanguageTexts.TXT_VALUE_SPRU"),
+      TXT_VALUE_UL: decodeString("@PLanguageTexts.TXT_VALUE_UL"),
+      TXT_VALUE_UVL: decodeString("@PLanguageTexts.TXT_VALUE_UVL"),
+      TXT_HEADER_VAR: decodeString("@PLanguageTexts.TXT_HEADER_VAR"),
+      TXT_DRILLIN_VAR: decodeString("@PLanguageTexts.TXT_DRILLIN_VAR"),
+        };
+    });
+
+</script>
+
+                                     
+<input type="hidden" id="gatewayPath" data-value="@ViewBag.GatewayPath" />
+<input type="hidden" id="authenticationToken" data-value="@ViewBag.AuthenticationToken" />
+<input type="hidden" id="authenticationType" data-value="@ViewBag.AuthenticationType" />
+<input type="hidden" id="batchKey" data-value="@ViewBag.BatchKey" />
+<input type="hidden" id="configKey" data-value="@ViewBag.ConfigKey" />
+
+
+<section class="view">
+
+
+  <div id="appKendoDrillIn" ng-app="KendoDrillIn">
+    <div id="DrillInCtrl" ng-controller="DrillInCtrl" ng-init="OnInitDrillInHeaders()">
+
+
+      <div id="viewHeadline" class="viewHeadline row">
+        <h1 class="h1WhiteFont">@ViewBag.Title</h1>
+      </div>
+
+      <div id="viewNavigation" class="row">
+        <table border="0" class="viewNavigation navigationBar">
+          <tr>
+            <td class="navigationBar-left">
+              <table>
+                <tr>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_BATCHNAME:<br />
+                    <div class="header">{{BatchName}}</div>
+                  </td>
+                  <td>
+                    &nbsp;<br />
+                  </td>
+                  <td>&nbsp;&nbsp;</td>
+                  <td>
+                    @PLanguageTexts.TXT_FTR_REPORT:<br />
+                    <div class="header">{{FTRReport}}</div> 
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+           
+          </tr>
+        </table>
+      </div>
+      <table>
+        <tr>
+          <td id="DrillIn_Header">
+            <h3>@PLanguageTexts.TXT_HEADER_VAR</h3>
+            <div id="gridDrillInHeader" kendo-grid="gridDrillInHeader" k-options="gridDrillInHeader" style="">
+            </div>
+          </td>
+
+        </tr>
+        <tr>
+          <td id="DrillIn_Values">
+            <h3>@PLanguageTexts.TXT_DRILLIN_VAR</h3>
+            <div id="gridDrillInValue" kendo-grid="gridDrillInValue" k-options="gridDrillInValue" style="">
+            </div>
+          </td>
+
+        </tr>
+
+      </table>
+        
+     
+
+    </div>
+  </div>
+</section>

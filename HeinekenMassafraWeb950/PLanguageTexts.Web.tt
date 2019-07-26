@@ -1,0 +1,120 @@
+﻿<# string project = this.Host.ResolveAssemblyReference("$(ProjectName)"); #>
+/******************************************************************************
+
+  FILE:       PLanguageTexts.cs
+
+  PROJECT:    <#=project#>
+
+  COMMENT:    Implementation der statischen Klasse PLanguageTexts (sprachabhängige Texte)
+              *** für WEB-Applikationen ***
+                -> Texte werden geladen über PlantiT.Web.Language.dll
+
+  CHANGES:    
+  10.04.2014  KSE   erstellt
+
+******************************************************************************/
+
+// ############################################################################
+// #                                                                          #
+// #        ---==>  T H I S  F I L E  I S   G E N E R A T E D  <==---         #
+// #                                                                          #
+// #                                                                          #
+// # This means that any edits to the .cs file will be lost when its          #
+// # regenerated. Changes should instead be applied to the corresponding      #
+// # template file (PLanguageTexts.tt)                                        #
+// ############################################################################
+
+<#@ template hostspecific="true" language="C#" #>
+<#@ output   extension=".cs" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+
+namespace <#=project#>
+{
+  using System;
+
+  [PlantiT.Web.Language.Internal.PLanguageTextsClass]
+  public static class PLanguageTexts
+  {
+    /// <summary>
+    /// Text-Loader for Web application
+    /// </summary>
+    private static readonly PlantiT.Web.Language.PLanguageTextLoader m_loader = PlantiT.Web.Language.PLanguageTextLoader.GetForAssembly(System.Reflection.Assembly.GetExecutingAssembly());
+
+<#
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // +++ Template
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  foreach (LangText text in this.GetTextIDs()) 
+  {
+#>
+    /// <summary>
+    ///   The text id for "<#=text.Comment#>".
+    /// </summary>
+    [PlantiT.Web.Language.Internal.PLanguageTextId("<#=text.ID#>")]
+    public const string ID_<#=text.ID#> = "<#=text.ID#>";
+
+    /// <summary>
+    ///   The default text id for "<#=text.Comment#>".
+    /// </summary>
+    [PlantiT.Web.Language.Internal.PLanguageTextDefault("<#=text.ID#>")]
+    public const string DEFAULT_<#=text.ID#> = "_<#=text.Text#>";
+
+    /// <summary>
+    ///   Looks up a localized string for "<#=text.Comment#>".
+    /// </summary>
+    [PlantiT.Web.Language.Internal.PLanguageText("<#=text.ID#>")]
+    public static string <#=text.ID#>
+    {
+      get 
+      {
+        return m_loader.GetText("<#=text.ID#>", DEFAULT_<#=text.ID#>);
+      }
+    }
+
+<#
+   }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#>
+  }
+}
+
+    
+<#+
+public class LangText
+{
+  public string ID;
+  public string Text;
+  public string Comment;
+
+  public LangText(string id, string text)
+  {
+    ID = id; 
+    Text = text.Replace("\"", "\\\"").Replace("\r\n", "\\r\\n").Replace("\r", "\\r\\n").Replace("\n", "\\r\\n");
+    Int32 pos = text.IndexOf("\r\n");
+    Comment = pos > -1 ? text.Substring(0, pos) + " ..." : text;
+  }
+}
+
+public List<LangText> GetTextIDs()
+{
+  List<LangText> result = new List<LangText>(); 
+
+  XmlDocument doc = new XmlDocument();
+  string lnx = this.Host.ResolveAssemblyReference("$(ProjectDir)") + this.Host.ResolveAssemblyReference("$(ProjectName)") + ".lnx";
+
+  if (File.Exists(lnx))
+  {
+    doc.Load(lnx);
+
+    foreach (XmlNode node in doc.SelectNodes("//Localizable//LanguageResources//Texts//Text"))
+    {
+      result.Add(new LangText(node.Attributes["ID"].InnerText, node.InnerText));
+    }
+  }
+  return result;
+}
+#>
+
