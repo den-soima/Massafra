@@ -4414,6 +4414,40 @@ namespace PlantiT.Web.HeinekenMassafra
             }
         }
 
+        /// <summary>
+        ///   The default text id for "Menu Group Item - FTR Report".
+        /// </summary>
+        [PlantiT.Web.Language.Internal.PLanguageTextDefault("TXT_MENUGROUPITEM_FTRREPORT")]
+        public const string DEFAULT_TXT_MENUGROUPITEM_FTRREPORT = "_FTR Report";
+        /// <summary>
+        ///   Looks up a localized string for "Menu Group Item - FTR Report".
+        /// </summary>
+        [PlantiT.Web.Language.Internal.PLanguageText("TXT_MENUGROUPITEM_FTRREPORT")]
+        public static string TXT_MENUGROUPITEM_FTRREPORT
+        {
+            get
+            {
+                return m_loader.GetText("TXT_MENUGROUPITEM_FTRREPORT", DEFAULT_TXT_MENUGROUPITEM_FTRREPORT);
+            }
+        }
+
+        /// <summary>
+        ///   The default text id for "Menu Group Item - FTR Template".
+        /// </summary>
+        [PlantiT.Web.Language.Internal.PLanguageTextDefault("TXT_MENUGROUPITEM_FTRTEMPLATE")]
+        public const string DEFAULT_TXT_MENUGROUPITEM_FTRTEMPLATE = "_FTR Template";
+        /// <summary>
+        ///   Looks up a localized string for "Menu Group Item - FTR Template".
+        /// </summary>
+        [PlantiT.Web.Language.Internal.PLanguageText("TXT_MENUGROUPITEM_FTRTEMPLATE")]
+        public static string TXT_MENUGROUPITEM_FTRTEMPLATE
+        {
+            get
+            {
+                return m_loader.GetText("TXT_MENUGROUPITEM_FTRTEMPLATE", DEFAULT_TXT_MENUGROUPITEM_FTRTEMPLATE);
+            }
+        }
+
     }
 }
 

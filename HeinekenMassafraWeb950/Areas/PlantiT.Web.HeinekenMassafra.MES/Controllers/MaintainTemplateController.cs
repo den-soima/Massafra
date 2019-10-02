@@ -12,9 +12,8 @@ using PlantiT.Web.Models;
 
 namespace PlantiT.Web.HeinekenMassafra.MES.Controllers
 {
-
-        public class MaintainTemplateController  : Controller 
-        {
+    public class MaintainTemplateController : Controller
+    {
 
         IConfigurationProvider configurationProvider;
         public MaintainTemplateController(PlantiT.Web.Configuration.IConfigurationProvider configurationProvider)
@@ -22,36 +21,91 @@ namespace PlantiT.Web.HeinekenMassafra.MES.Controllers
             this.configurationProvider = configurationProvider;
         }
 
-        // GET: PlantiT.Web.HeinekenMassafra.MES/MaintainTemplateController
-        public virtual async Task<ActionResult> Index(long ml) 
-    {
-
-        // Berechtigungen ermitteln
-        PPrincipal principal = System.Web.HttpContext.Current.GetPrincipal();
-        if ((null != principal) && !String.IsNullOrWhiteSpace(principal.AuthenticationType))
+        // GET: PlantiT.Web.HeinekenBergamo.MES/MaintainTemplateController
+        public virtual async Task<ActionResult> Index(long ml)
         {
-            ViewBag.AuthenticationToken = principal.AuthenticationToken;
-            ViewBag.AuthenticationType = principal.AuthenticationType;
+
+            // Berechtigungen ermitteln
+            PPrincipal principal = System.Web.HttpContext.Current.GetPrincipal();
+            if ((null != principal) && !String.IsNullOrWhiteSpace(principal.AuthenticationType))
+            {
+                ViewBag.AuthenticationToken = principal.AuthenticationToken;
+                ViewBag.AuthenticationType = principal.AuthenticationType;
+            }
+
+            // Gateway Verbindung
+            PGatewayConnection gatewayConnection = DependencyResolver.Current.GetService(typeof(PGatewayConnection)) as PGatewayConnection;
+
+            if (gatewayConnection == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Gateway information not found");
+            }
+
+
+            Models.Database.MenuItem menuItem = this.configurationProvider.GetCurrentMenuItem(ml);
+            System.Web.Routing.RouteValueDictionary routeValues = menuItem.GetRouteValues(true);
+            String select_usage = routeValues["select_usage"].ToString();
+            ViewBag.GatewayPath = gatewayConnection.BaseUri;
+            ViewBag.select_usage = select_usage;
+            return View();
         }
 
-        // Gateway Verbindung
-        PGatewayConnection gatewayConnection = DependencyResolver.Current.GetService(typeof(PGatewayConnection)) as PGatewayConnection;
-
-        if (gatewayConnection == null)
+        public virtual async Task<ActionResult> IndexDE(long ml)
         {
-            return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Gateway information not found");
+
+            // Berechtigungen ermitteln
+            PPrincipal principal = System.Web.HttpContext.Current.GetPrincipal();
+            if ((null != principal) && !String.IsNullOrWhiteSpace(principal.AuthenticationType))
+            {
+                ViewBag.AuthenticationToken = principal.AuthenticationToken;
+                ViewBag.AuthenticationType = principal.AuthenticationType;
+            }
+
+            // Gateway Verbindung
+            PGatewayConnection gatewayConnection = DependencyResolver.Current.GetService(typeof(PGatewayConnection)) as PGatewayConnection;
+
+            if (gatewayConnection == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Gateway information not found");
+            }
+
+
+            Models.Database.MenuItem menuItem = this.configurationProvider.GetCurrentMenuItem(ml);
+            System.Web.Routing.RouteValueDictionary routeValues = menuItem.GetRouteValues(true);
+            String select_usage = "*[Template Type].1*";
+
+            ViewBag.GatewayPath = gatewayConnection.BaseUri;
+            ViewBag.select_usage = select_usage;
+            return View("Index");
         }
 
+        public virtual async Task<ActionResult> IndexEH(long ml)
+        {
 
-		Models.Database.MenuItem menuItem = this.configurationProvider.GetCurrentMenuItem(ml);
-		System.Web.Routing.RouteValueDictionary routeValues = menuItem.GetRouteValues(true);
-		String select_usage = routeValues["select_usage"].ToString();
- 
-        ViewBag.GatewayPath = gatewayConnection.BaseUri;
-        ViewBag.select_usage = select_usage;
-        return View();
+            // Berechtigungen ermitteln
+            PPrincipal principal = System.Web.HttpContext.Current.GetPrincipal();
+            if ((null != principal) && !String.IsNullOrWhiteSpace(principal.AuthenticationType))
+            {
+                ViewBag.AuthenticationToken = principal.AuthenticationToken;
+                ViewBag.AuthenticationType = principal.AuthenticationType;
+            }
+
+            // Gateway Verbindung
+            PGatewayConnection gatewayConnection = DependencyResolver.Current.GetService(typeof(PGatewayConnection)) as PGatewayConnection;
+
+            if (gatewayConnection == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict, "Gateway information not found");
+            }
+
+
+            Models.Database.MenuItem menuItem = this.configurationProvider.GetCurrentMenuItem(ml);
+            System.Web.Routing.RouteValueDictionary routeValues = menuItem.GetRouteValues(true);
+            String select_usage = "*[Template Type].2*";
+
+            ViewBag.GatewayPath = gatewayConnection.BaseUri;
+            ViewBag.select_usage = select_usage;
+            return View("Index");
+        }
     }
-
-
-}
 }

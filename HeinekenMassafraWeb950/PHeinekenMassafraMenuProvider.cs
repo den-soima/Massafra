@@ -67,107 +67,111 @@ namespace PlantiT.Web.HeinekenMassafra
 
                 m_menu.Clear();
 
-                #region MenuGroup: Reports
-                menuGroup = new MenuGroup
-                {
-                    Id = 1,
-                    LocalName = PLanguageTexts.TXT_MENUGROUP_REPORTS,
-                    GlobalName = PLanguageTexts.TXT_MENUGROUP_REPORTS,
-                    Sequence = 1000000,
-                    ProviderLink = ProviderInfo.Id
-                };
-                try
-                {
-                    menuGroup.Items.Add(
-                      new MenuItem
-                      {
-                          Id = 1000001,
-                          MenuGroupId = menuGroup.Id,
-                          Area = "PlantiT.Web.HeinekenMassafra.MES",
-                          Controller = "Reports",
-                          Action = "Index",
-                          PlantitRight = "",
-                          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_REPORTOVERVIEW,
-                          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_REPORTOVERVIEW,
-                          AddInType = AddInType.EmbeddedView,
-                      }
-                    );
-                }
-                // ToDo: change errors handling
-                catch (Exception)
-                {
-                    m_menu.Clear();
-                    return m_menu;
-                }
-                m_menu.Add(menuGroup);
+                #region MenuGroup: Reports - not used (BasicInstall)
+                //menuGroup = new MenuGroup
+                //{
+                //    Id = 1,
+                //    LocalName = PLanguageTexts.TXT_MENUGROUP_REPORTS,
+                //    GlobalName = PLanguageTexts.TXT_MENUGROUP_REPORTS,
+                //    Sequence = 1000000,
+                //    ProviderLink = ProviderInfo.Id
+                //};
+                //try
+                //{
+                //    menuGroup.Items.Add(
+                //      new MenuItem
+                //      {
+                //          Id = 1000001,
+                //          MenuGroupId = menuGroup.Id,
+                //          Area = "PlantiT.Web.HeinekenMassafra.MES",
+                //          Controller = "Reports",
+                //          Action = "Index",
+                //          PlantitRight = "",
+                //          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_REPORTOVERVIEW,
+                //          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_REPORTOVERVIEW,
+                //          AddInType = AddInType.EmbeddedView,
+                //      }
+                //    );
+                //}
+                //// ToDo: change errors handling
+                //catch (Exception)
+                //{
+                //    m_menu.Clear();
+                //    return m_menu;
+                //}
+                //m_menu.Add(menuGroup);
                 #endregion
-                #region MenuGroup: Dashboards
-                menuGroup = new MenuGroup
-                {
-                    Id = 2,
-                    LocalName = PLanguageTexts.TXT_MENUGROUP_DASHBOARDS,
-                    GlobalName = PLanguageTexts.TXT_MENUGROUP_DASHBOARDS,
-                    Sequence = 2000000,
-                    ProviderLink = ProviderInfo.Id
-                };
-                try
-                {
-                    menuGroup.Items.Add(
-                      new MenuItem
-                      {
-                          Id = 2000001,
-                          MenuGroupId = menuGroup.Id,
-                          Area = "PlantiT.Web.HeinekenMassafra.MES",
-                          Controller = "Dashboards",
-                          Action = "Dashboard",
-                          PlantitRight = "",
-                          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_PLANTITBATCHANALYTICS,
-                          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_PLANTITBATCHANALYTICS,
-                          AddInType = AddInType.EmbeddedView,
-                      }
-                    );
-                }
-                // ToDo: change errors handling
-                catch (Exception)
-                {
-                    m_menu.Clear();
-                    return m_menu;
-                }
-                m_menu.Add(menuGroup);
+                #region MenuGroup: Dashboards - not used (BasicInstall)
+                //menuGroup = new MenuGroup
+                //{
+                //    Id = 2,
+                //    LocalName = PLanguageTexts.TXT_MENUGROUP_DASHBOARDS,
+                //    GlobalName = PLanguageTexts.TXT_MENUGROUP_DASHBOARDS,
+                //    Sequence = 2000000,
+                //    ProviderLink = ProviderInfo.Id
+                //};
+                //try
+                //{
+                //    menuGroup.Items.Add(
+                //      new MenuItem
+                //      {
+                //          Id = 2000001,
+                //          MenuGroupId = menuGroup.Id,
+                //          Area = "Dashboard",
+                //          Controller = "Dashboards",
+                //          Action = "Dashboard",
+                //          RouteValues = new Dictionary<string, string>() {
+                //                { "doc", "Plant iT Batch Analytics.qvw"},
+                //                { "width", "1609"}
+                //          },
+                //          PlantitRight = "",
+                //          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_PLANTITBATCHANALYTICS,
+                //          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_PLANTITBATCHANALYTICS,
+                //          AddInType = AddInType.EmbeddedView,
+                //      }
+                //    );
+                //}
+                //// ToDo: change errors handling
+                //catch (Exception)
+                //{
+                //    m_menu.Clear();
+                //    return m_menu;
+                //}
+                //m_menu.Add(menuGroup);
                 #endregion
-                #region MenuGroup: Batch Tracking
-                menuGroup = new MenuGroup
-                {
-                    Id = 3,
-                    LocalName = PLanguageTexts.TXT_MENUGROUP_BATCHTRACKING,
-                    GlobalName = PLanguageTexts.TXT_MENUGROUP_BATCHTRACKING,
-                    Sequence = 3000000,
-                    ProviderLink = ProviderInfo.Id
-                };
-                try
-                {
-                    menuGroup.Items.Add(
-                      new MenuItem
-                      {
-                          Id = 3000001,
-                          MenuGroupId = menuGroup.Id,
-                          Area = "PlantiT.Web.HeinekenMassafra.MES",
-                          Controller = "BatchTracker",
-                          Action = "Batch",
-                          PlantitRight = "",
-                          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_BATCHTRACKER,
-                          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_BATCHTRACKER,
-                          AddInType = AddInType.EmbeddedView,
-                      }
-                    );
-                }
-                // ToDo: change errors handling
-                catch (Exception)
-                {
-                    m_menu.Clear();
-                    return m_menu;
-                }
-                m_menu.Add(menuGroup);
+                #region MenuGroup: Batch Tracking - not used (BasicInstall)
+                //menuGroup = new MenuGroup
+                //{
+                //    Id = 3,
+                //    LocalName = PLanguageTexts.TXT_MENUGROUP_BATCHTRACKING,
+                //    GlobalName = PLanguageTexts.TXT_MENUGROUP_BATCHTRACKING,
+                //    Sequence = 3000000,
+                //    ProviderLink = ProviderInfo.Id
+                //};
+                //try
+                //{
+                //    menuGroup.Items.Add(
+                //      new MenuItem
+                //      {
+                //          Id = 3000001,
+                //          MenuGroupId = menuGroup.Id,
+                //          Area = "PlantiT.Web.HeinekenMassafra.MES",
+                //          Controller = "BatchTracker",
+                //          Action = "Batch",
+                //          PlantitRight = "",
+                //          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_BATCHTRACKER,
+                //          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_BATCHTRACKER,
+                //          AddInType = AddInType.EmbeddedView,
+                //      }
+                //    );
+                //}
+                //// ToDo: change errors handling
+                //catch (Exception)
+                //{
+                //    m_menu.Clear();
+                //    return m_menu;
+                //}
+                //m_menu.Add(menuGroup);
                 #endregion
                 #region MenuGroup: Analysis
                 menuGroup = new MenuGroup
@@ -214,6 +218,20 @@ namespace PlantiT.Web.HeinekenMassafra
                          Id = 4000003,
                          MenuGroupId = menuGroup.Id,
                          Area = "PlantiT.Web.HeinekenMassafra.MES",
+                         Controller = "FTR",
+                         Action = "Index",
+                         PlantitRight = "",
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_FTRREPORT,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_FTRREPORT,
+                         AddInType = AddInType.EmbeddedView,
+                     }
+                   );
+                    menuGroup.Items.Add(
+                     new MenuItem
+                     {
+                         Id = 4000004,
+                         MenuGroupId = menuGroup.Id,
+                         Area = "PlantiT.Web.HeinekenMassafra.MES",
                          Controller = "DataExport",
                          Action = "Index",
                          PlantitRight = "",
@@ -225,42 +243,14 @@ namespace PlantiT.Web.HeinekenMassafra
                     menuGroup.Items.Add(
                      new MenuItem
                      {
-                         Id = 4000004,
+                         Id = 4000005,
                          MenuGroupId = menuGroup.Id,
                          Area = "PlantiT.Web.HeinekenMassafra.MES",
                          Controller = "DosingBatchManagement",
                          Action = "Index",
                          PlantitRight = "",
-                         GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_DOSINGBATCHES,
-                         LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_DOSINGBATCHES,
-                         AddInType = AddInType.EmbeddedView,
-                     }
-                   );
-                    menuGroup.Items.Add(
-                     new MenuItem
-                     {
-                         Id = 4000004,
-                         MenuGroupId = menuGroup.Id,
-                         Area = "PlantiT.Web.HeinekenMassafra.MES",
-                         Controller = "EventHistory",
-                         Action = "Index",
-                         PlantitRight = "",
-                         GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_EVENTHISTORY,
-                         LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_EVENTHISTORY,
-                         AddInType = AddInType.EmbeddedView,
-                     }
-                   );
-                    menuGroup.Items.Add(
-                     new MenuItem
-                     {
-                         Id = 4000005,
-                         MenuGroupId = menuGroup.Id,
-                         Area = "PlantiT.Web.HeinekenMassafra.MES",
-                         Controller = "ExceptionReport",
-                         Action = "Index",
-                         PlantitRight = "",
-                         GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_EXCEPTIONREPORT,
-                         LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_EXCEPTIONREPORT,
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_DOSINGBATCHES,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_DOSINGBATCHES,
                          AddInType = AddInType.EmbeddedView,
                      }
                    );
@@ -270,11 +260,11 @@ namespace PlantiT.Web.HeinekenMassafra
                          Id = 4000006,
                          MenuGroupId = menuGroup.Id,
                          Area = "PlantiT.Web.HeinekenMassafra.MES",
-                         Controller = "TestConformance",
+                         Controller = "EventHistory",
                          Action = "Index",
                          PlantitRight = "",
-                         GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_TESTCONFORMANCE,
-                         LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_TESTCONFORMANCE,
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_EVENTHISTORY,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_EVENTHISTORY,
                          AddInType = AddInType.EmbeddedView,
                      }
                    );
@@ -284,25 +274,53 @@ namespace PlantiT.Web.HeinekenMassafra
                          Id = 4000007,
                          MenuGroupId = menuGroup.Id,
                          Area = "PlantiT.Web.HeinekenMassafra.MES",
+                         Controller = "ExceptionReport",
+                         Action = "Index",
+                         PlantitRight = "",
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_EXCEPTIONREPORT,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_EXCEPTIONREPORT,
+                         AddInType = AddInType.EmbeddedView,
+                     }
+                   );
+                    menuGroup.Items.Add(
+                     new MenuItem
+                     {
+                         Id = 4000008,
+                         MenuGroupId = menuGroup.Id,
+                         Area = "PlantiT.Web.HeinekenMassafra.MES",
+                         Controller = "TestConformance",
+                         Action = "Index",
+                         PlantitRight = "",
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_TESTCONFORMANCE,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_TESTCONFORMANCE,
+                         AddInType = AddInType.EmbeddedView,
+                     }
+                   );
+                    menuGroup.Items.Add(
+                     new MenuItem
+                     {
+                         Id = 4000009,
+                         MenuGroupId = menuGroup.Id,
+                         Area = "PlantiT.Web.HeinekenMassafra.MES",
                          Controller = "VariableConformance",
                          Action = "Index",
                          PlantitRight = "",
-                         GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_VARIABLECOMFORMANCE,
-                         LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_VARIABLECOMFORMANCE,
+                         GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_VARIABLECOMFORMANCE,
+                         LocalName = PLanguageTexts.TXT_MENUGROUPITEM_VARIABLECOMFORMANCE,
                          AddInType = AddInType.EmbeddedView,
                      }
                    );
                     menuGroup.Items.Add(
                     new MenuItem
                     {
-                        Id = 4000008,
+                        Id = 4000010,
                         MenuGroupId = menuGroup.Id,
                         Area = "PlantiT.Web.HeinekenMassafra.MES",
                         Controller = "OPICalculation",
                         Action = "Index",
                         PlantitRight = "",
-                        GlobalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_OPICALCULATION,
-                        LocalName = PLanguageTexts.DEFAULT_TXT_MENUGROUPITEM_OPICALCULATION,
+                        GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_OPICALCULATION,
+                        LocalName = PLanguageTexts.TXT_MENUGROUPITEM_OPICALCULATION,
                         AddInType = AddInType.EmbeddedView,
                     }
                   );
@@ -327,9 +345,24 @@ namespace PlantiT.Web.HeinekenMassafra
                 try
                 {
                     menuGroup.Items.Add(
+                    new MenuItem
+                    {
+                        Id = 5000001,
+                        MenuGroupId = menuGroup.Id,
+                        Area = "PlantiT.Web.HeinekenMassafra.MES",
+                        Controller = "MaintainFTRTemplate",
+                        Action = "Index",
+                        PlantitRight = "",
+                        GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_FTRTEMPLATE,
+                        LocalName = PLanguageTexts.TXT_MENUGROUPITEM_FTRTEMPLATE,
+                        AddInType = AddInType.EmbeddedView,
+                    }
+                    );
+
+                   menuGroup.Items.Add(
                       new MenuItem
                       {
-                          Id = 5000001,
+                          Id = 5000002,
                           MenuGroupId = menuGroup.Id,
                           Area = "PlantiT.Web.HeinekenMassafra.MES",
                           Controller = "MaintainTemplate",
@@ -343,7 +376,7 @@ namespace PlantiT.Web.HeinekenMassafra
                     menuGroup.Items.Add(
                      new MenuItem
                      {
-                         Id = 5000002,
+                         Id = 5000003,
                          MenuGroupId = menuGroup.Id,
                          Area = "PlantiT.Web.HeinekenMassafra.MES",
                          Controller = "MaintainTemplate",
@@ -354,6 +387,8 @@ namespace PlantiT.Web.HeinekenMassafra
                          AddInType = AddInType.EmbeddedView,
                      }
                    );
+                  
+                
                 }
                 // ToDo: change errors handling
                 catch (Exception)
@@ -363,66 +398,66 @@ namespace PlantiT.Web.HeinekenMassafra
                 }
                 m_menu.Add(menuGroup);
                 #endregion
-                #region MenuGroup: Administration
-                menuGroup = new MenuGroup
-                {
-                    Id = 6,
-                    LocalName = PLanguageTexts.TXT_MENUGROUP_ADMINISTRATION,
-                    GlobalName = PLanguageTexts.TXT_MENUGROUP_ADMINISTRATION,
-                    Sequence = 6000000,
-                    ProviderLink = ProviderInfo.Id
-                };
-                try
-                {
-                    menuGroup.Items.Add(
-                      new MenuItem
-                      {
-                          Id = 6000001,
-                          MenuGroupId = menuGroup.Id,
-                          Area = "PlantiT.Web.HeinekenMassafra.MES",
-                          Controller = "Administration",
-                          Action = "Index",
-                          PlantitRight = "",
-                          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_WEBPORTAL,
-                          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_WEBPORTAL,
-                          AddInType = AddInType.EmbeddedView,
-                      }
-                    );
-                }
-                // ToDo: change errors handling
-                catch (Exception)
-                {
-                    m_menu.Clear();
-                    return m_menu;
-                }
-                m_menu.Add(menuGroup);
+                #region MenuGroup: Administration  - not used (BasicInstall)
+                //menuGroup = new MenuGroup
+                //{
+                //    Id = 6,
+                //    LocalName = PLanguageTexts.TXT_MENUGROUP_ADMINISTRATION,
+                //    GlobalName = PLanguageTexts.TXT_MENUGROUP_ADMINISTRATION,
+                //    Sequence = 6000000,
+                //    ProviderLink = ProviderInfo.Id
+                //};
+                //try
+                //{
+                //    menuGroup.Items.Add(
+                //      new MenuItem
+                //      {
+                //          Id = 6000001,
+                //          MenuGroupId = menuGroup.Id,
+                //          Area = "PlantiT.Web.HeinekenMassafra.MES",
+                //          Controller = "Administration",
+                //          Action = "Index",
+                //          PlantitRight = "",
+                //          GlobalName = PLanguageTexts.TXT_MENUGROUPITEM_WEBPORTAL,
+                //          LocalName = PLanguageTexts.TXT_MENUGROUPITEM_WEBPORTAL,
+                //          AddInType = AddInType.EmbeddedView,
+                //      }
+                //    );
+                //}
+                //// ToDo: change errors handling
+                //catch (Exception)
+                //{
+                //    m_menu.Clear();
+                //    return m_menu;
+                //}
+                //m_menu.Add(menuGroup);
                 #endregion
             }
             return m_menu;
         }
 
-    /// <summary>
-    /// Save manu
-    /// </summary>
-    /// <param name="menuGroups">Groups with items</param>
-    public void SaveMenu(IEnumerable<MenuGroup> menuGroups)
-    {
-        // not implemented
-    }
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    public PHeinekenMassafraMenuProvider(PGatewaySettings gatewaySettings)
-    {
-        if (gatewaySettings == null)
+        /// <summary>
+        /// Save manu
+        /// </summary>
+        /// <param name="menuGroups">Groups with items</param>
+        public void SaveMenu(IEnumerable<MenuGroup> menuGroups)
         {
-            throw new NullReferenceException("EDAProtocolOperationProvider constructor");
+            // not implemented
         }
 
-        lockObject = new object();
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public PHeinekenMassafraMenuProvider(PGatewaySettings gatewaySettings)
+        {
+            if (gatewaySettings == null)
+            {
+                throw new NullReferenceException("EDAProtocolOperationProvider constructor");
+            }
 
-        m_menu = new List<MenuGroup>();
+            lockObject = new object();
+
+            m_menu = new List<MenuGroup>();
+        }
     }
-}
 }

@@ -147,6 +147,7 @@
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\DrillIn.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\EventHistory.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\ExceptionReport.js" />
+    <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\FTR.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\he\he-0.5.0.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\jQuery-ui\jquery-ui-1.11.1.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\jQuery-ui\jquery-ui-1.11.2.js" />
@@ -1268,6 +1269,7 @@
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\kendo\messages\kendo.messages.zh-TW.min.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\kendo\pako_deflate.min.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\MaintainDrillInTemplate.js" />
+    <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\MaintainFTRTemplate.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\MaintainTemplate.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\OPICalculation.js" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Scripts\SAPInterface.js" />
@@ -1288,7 +1290,7 @@
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\BatchOverview.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\Brewplan.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\DataExport.css" />
-    <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\GradoFST.css" />
+    <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\FTR.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\DosingBatchManagement.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\DrillIn.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\EventHistory.css" />
@@ -1641,6 +1643,7 @@
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\kendo\Uniform\sprite_kpi.png" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\kendo\Uniform\sprite_kpi_2x.png" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\MaintainDrillInTemplate.css" />
+    <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\MaintainFTRTemplate.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\MaintainTemplate.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\OPICalculation.css" />
     <Content Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Content\Styles\SAPInterface.css" />
@@ -1662,7 +1665,9 @@
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\DrillInController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\EventHistoryController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\ExceptionReportController.cs" />
+    <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\FTRController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\MaintainDrillInTemplateController.cs" />
+    <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\MaintainFTRTemplateController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\MaintainTemplateController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\OPICalculationController.cs" />
     <Compile Include="Areas\PlantiT.Web.HeinekenMassafra.MES\Controllers\SAPInterfaceController.cs" />
